@@ -88,35 +88,36 @@ public class MappingMySQL {
         return null;
     }
 
-    // CRUD UPDATE ==========================================================================
-    public void update(Object obj) {
-        String tableName = obj.getClass().getSimpleName().toLowerCase();
-        String fieldNameId = "id_" + tableName;
-        Field[] fields = obj.getClass().getDeclaredFields();
-        StringBuilder setClause = new StringBuilder();
+   // CRUD UPDATE ==========================================================================
+public void update(Object obj) {
+    String tableName = obj.getClass().getSimpleName().toLowerCase();
+    String fieldNameId = "id_" + tableName;
+    Field[] fields = obj.getClass().getDeclaredFields();
+    StringBuilder setClause = new StringBuilder();
 
-        try {
-            Object idValue = null;
-            for (Field field : fields) {
-                field.setAccessible(true);
-                if (field.getName().equals(fieldNameId)) {
-                    idValue = field.get(obj);
-                } else {
-                    setClause.append(field.getName()).append(" = '").append(field.get(obj)).append("', ");
-                }
+    try {
+        Object idValue = null;
+        for (Field field : fields) {
+            field.setAccessible(true);
+            if (field.getName().equals(fieldNameId)) {
+                idValue = field.get(obj);
+            } else {
+                setClause.append(field.getName()).append(" = '").append(field.get(obj)).append("', ");
             }
-            setClause.setLength(setClause.length() - 2); // Remove the trailing comma and space
-
-            String query = "UPDATE " + tableName + " SET " + setClause + " WHERE " + fieldNameId + " = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setObject(1, idValue);
-                statement.executeUpdate();
-                System.out.println("Record updated in table " + tableName + " successfully.");
-            }
-        } catch (IllegalAccessException | SQLException e) {
-            System.err.println("Error updating record: " + e.getMessage());
         }
+        setClause.setLength(setClause.length() - 2); // Remove the trailing comma and space
+
+        String query = "UPDATE " + tableName + " SET " + setClause + " WHERE " + fieldNameId + " = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setObject(1, idValue);
+            statement.executeUpdate();
+            System.out.println("Record updated in table " + tableName + " successfully.");
+        }
+    } catch (IllegalAccessException | SQLException e) {
+        System.err.println("Error updating record: " + e.getMessage());
     }
+}
+
 
     // CRUD DELETE ==========================================================================
     public void delete(Class<?> clazz, Object id) {
