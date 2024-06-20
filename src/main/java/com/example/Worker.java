@@ -1,17 +1,19 @@
 package com.example;
 
+import java.math.BigDecimal;
+
 public class Worker {
 
-    private String id;
+    private String id_worker;
     private String name;
-    private int age;
+    private BigDecimal age;
     private String position;
 
-    public Worker(String name, int age, String position) {
+    public Worker(String name, BigDecimal age, String position) {
         this.name = name;
         this.age = age;
         this.position = position;
-        this.id = generateId(); // Se genera el ID aquí en lugar de en el constructor
+        this.id_worker = generateId(); // Genera el ID aquí en lugar de en el constructor
     }
 
     public Worker() {
@@ -30,12 +32,12 @@ public class Worker {
     }
 
     // Getters y Setters
-    public String getId() {
-        return id;
+    public String getId_worker() {
+        return id_worker;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId_worker(String id_worker) {
+        this.id_worker = id_worker;
     }
 
     public String getName() {
@@ -46,11 +48,11 @@ public class Worker {
         this.name = name;
     }
 
-    public int getAge() {
+    public BigDecimal getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(BigDecimal age) {
         this.age = age;
     }
 
@@ -65,11 +67,10 @@ public class Worker {
     @Override
     public String toString() {
         return "Worker{" +
-                "id='" + id + '\'' +
+                "id_worker='" + id_worker + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", position='" + position + '\'' +
                 '}';
     }
-    
 }

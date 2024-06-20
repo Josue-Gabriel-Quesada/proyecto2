@@ -1,44 +1,30 @@
-/**
- * Clase de prueba que demuestra el uso del mapeo de objetos.
- * 
- * <p>Esta clase contiene métodos de prueba que demuestran cómo utilizar el mapeo de objetos para realizar operaciones
- * CRUD en una base de datos.</p>
- * 
- * <p>Se proporcionan ejemplos de creación, recuperación, actualización y eliminación de objetos de tipo Worker en la base de datos.</p>
- * 
- * <p>Para ejecutar estos métodos de prueba, se necesita un objeto de tipo Mapping configurado para conectarse a la base de datos.</p>
- * 
- * <p>Se recomienda ejecutar estos métodos en un entorno de prueba para evitar modificar datos importantes en la base de datos.</p>
- * 
- * <p>Antes de ejecutar estos métodos, asegúrese de que la base de datos esté configurada correctamente y que los nombres de las tablas
- * y los campos coincidan con los nombres utilizados en el código.</p>
- * 
- * <p>Se puede ajustar el código de esta clase según sea necesario para adaptarlo a las necesidades específicas de la aplicación.</p>
- * 
- * @author Josue Gabriel
- * @version 23/05/2024
- */
 package com.example;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class TestOracle {
 
-    public static String createWorker(MappingOracle mapping, String name, int age, String position) {
+    public static String createWorker(MappingOracle mapping, String name, BigDecimal age, String position) {
         Worker worker = new Worker(name, age, position);
         mapping.insert(worker);
-        System.out.println("(Oracle)ID generado para el nuevo trabajador: " + worker.getId());
-        return worker.getId(); // Devuelve el ID generado para el trabajador
+        System.out.println("(Oracle)ID generado para el nuevo trabajador: " + worker.getId_worker());
+        return worker.getId_worker(); // Devuelve el ID generado para el trabajador
     }
 
-    public static void retrieveAllWorkers(MappingOracle mapping) {
+    public static List<Worker> retrieveAllWorkers(MappingOracle mapping) {
         List<Worker> workers = mapping.selectAll(Worker.class);
-        for (Worker worker : workers) {
-            System.out.println("ID: " + worker.getId() + ", Nombre: " + worker.getName() + ", Edad: " + worker.getAge() + ", Puesto: " + worker.getPosition());
+        if (workers != null) {
+            for (Worker worker : workers) {
+                System.out.println("ID: " + worker.getId_worker() + ", Nombre: " + worker.getName() + ", Edad: " + worker.getAge() + ", Puesto: " + worker.getPosition());
+            }
+        } else {
+            System.out.println("No se encontraron trabajadores.");
         }
+        return workers; // Devolver la lista (puede ser null)
     }
 
-    public static void updateWorker(MappingOracle mapping, String id, String newName, int newAge, String newPosition) {
+    public static void updateWorker(MappingOracle mapping, String id, String newName, BigDecimal newAge, String newPosition) {
         Worker worker = mapping.selectById(Worker.class, id);
         if (worker != null) {
             worker.setName(newName);
@@ -52,6 +38,7 @@ public class TestOracle {
     }
 
     public static void deleteWorker(MappingOracle mapping, String id) {
+        // No es necesario verificar si el worker es null antes de eliminarlo
         mapping.delete(Worker.class, id);
         System.out.println("Trabajador eliminado exitosamente(Oracle).");
     }

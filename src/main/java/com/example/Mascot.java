@@ -1,33 +1,34 @@
 package com.example;
 
+import java.util.Random;
+
 public class Mascot {
     private String type;
     private String name;
     private String breed;
     private String owner;
-    private String id;
+    private String id_mascot;
 
     public Mascot(String type, String name, String breed, String owner) {
         this.type = type;
         this.name = name;
         this.breed = breed;
         this.owner = owner;
-        this.id = generateId();
+        this.id_mascot = generateId();
     }
 
-    // Método para generar un ID aleatorio
     private String generateId() {
         StringBuilder sb = new StringBuilder();
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         int length = 10;
+        Random random = new Random();
         for (int i = 0; i < length; i++) {
-            int index = (int)(Math.random() * characters.length());
+            int index = random.nextInt(characters.length());
             sb.append(characters.charAt(index));
         }
         return sb.toString();
     }
 
-    // Getters and setters
     public String getType() {
         return type;
     }
@@ -60,12 +61,12 @@ public class Mascot {
         this.owner = owner;
     }
 
-    public String getId() {
-        return id;
+    public String getId_mascot() {
+        return id_mascot;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId_mascot(String id_mascot) {
+        this.id_mascot = id_mascot;
     }
 
     @Override
@@ -75,7 +76,7 @@ public class Mascot {
                 ", name='" + name + '\'' +
                 ", breed='" + breed + '\'' +
                 ", owner='" + owner + '\'' +
-                ", id='" + id + '\'' +
+                ", id_mascot='" + id_mascot + '\'' +
                 '}';
     }
 }
