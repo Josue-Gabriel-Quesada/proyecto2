@@ -42,4 +42,8 @@ public class TestOracle {
         mapping.delete(Worker.class, id);
         System.out.println("Trabajador eliminado exitosamente(Oracle).");
     }
+
+    public static Worker findWorkerById(MappingOracle mapping, String id) {
+        return mapping.selectById(Worker.class, id);
+    }
 }

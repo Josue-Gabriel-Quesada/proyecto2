@@ -1,53 +1,53 @@
 package com.example;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
+
 
 public class Main {
 
     public static void main(String[] args) {
-        // Establecer la conexión a la base de datos MySQL usando DatabaseConnection
-        try (Connection connection = DatabaseConnection.conectarMySQL()) {
-            System.out.println("Connected to MySQL database.");
+    
 
-            // Crear una instancia de MappingMySQL 
-            MappingMySQL mapping = new MappingMySQL(connection);
-//--------------------------------------------------------------------------------------//
-            // Crear una nueva casa
-            //System.out.println("\nCreating a new house in MySQL database:");
-            //TestMySQL.createHouse(mapping, "Palmar", 11, 350.5);
-//--------------------------------------------------------------------------------------//
-                  // Eliminar la casa por ID específico (manualmente)
-            //String manualId = "LTl7L60CCp";
-            //System.out.println("\nDeleting the house with ID " + manualId + " from MySQL database:");
-            //TestMySQL.deleteHouse(mapping, manualId);
- //--------------------------------------------------------------------------------------//
+  try {
 
-  // Actualizar la casa 
-  //String manualId = "dGg3ruvAOg";
-  //String newAddress = "San jose";
-  //int newRooms = 5;
-  //double newArea = 300.0;
-  //System.out.println("\nUpdating the house with ID " + manualId + " in MySQL database:");
-  //TestMySQL.updateHouse(mapping, manualId, newAddress, newRooms, newArea);
- //--------------------------------------------------------------------------------------//
 
-   // Mostrar todas las casas
-   //System.out.println("\nRetrieving all houses from MySQL database:");
-   //TestMySQL.retrieveAllHouses(mapping);
- //--------------------------------------------------------------------------------------//
+            // Conectar a la base de datos Oracle
+            Connection oracleConnection = DatabaseConnection.conectarOracleXE();
+            // Crear una instancia de MappingOracle para realizar mapeos y operaciones CRUD en Oracle
+            MappingOracle oracleMapping = new MappingOracle(oracleConnection);
 
-   // Mostrar una casa por ID específico (manualmente)
-   String manualId = "dGg3ruvAOg";
-   System.out.println("\nRetrieving the house with ID " + manualId + " from MySQL database:");
-   TestMySQL.retrieveHouseById(mapping, manualId);
+            // Ejemplo de creación de un trabajador en Oracle
+            //TestOracle.createWorker(oracleMapping, "Brandon", BigDecimal.valueOf(30), "Administrador");
 
-                   // Cerrar la conexión a la base de datos
-            connection.close();
-            System.out.println("Disconnected from MySQL database.");
+            // Recuperar todos los trabajadores
+            //TestOracle.retrieveAllWorkers(oracleMapping);
+           
+              // Buscar un trabajador por ID
+              //String oracleWorkerIdToFind = "bnDhboR0qP"; // Aquí defines manualmente el ID del trabajador a buscar
+              //Worker foundWorker = TestOracle.findWorkerById(oracleMapping, oracleWorkerIdToFind);
+              //if (foundWorker != null) {
+                  //System.out.println("Trabajador encontrado: ID: " + foundWorker.getId_worker() + ", Nombre: " + foundWorker.getName() + ", Edad: " + foundWorker.getAge() + ", Puesto: " + foundWorker.getPosition());
+              //} else {
+                //  System.out.println("No se encontró ningún trabajador con el ID especificado.");
+              //}
+
+            // Ejemplo de Actualizar un trabajador en Oracle
+            //String oracleWorkerIdToUpdate 
+            //TestOracle.updateWorker(oracleMapping, oracleWorkerIdToUpdate, "Nuevo Nombre", BigDecimal.valueOf(32), "Nuevo Puesto");
+
+            // Ejemplo de Eliminar un trabajador en Oracle
+            String oracleWorkerIdToDelete = "vThEipWdE7"; 
+            TestOracle.deleteWorker(oracleMapping, oracleWorkerIdToDelete);
 
         } catch (SQLException e) {
-            System.err.println("Error connecting to MySQL database: " + e.getMessage());
+            e.printStackTrace();
         }
-    }
+
+
+
+
+}
+
 }
